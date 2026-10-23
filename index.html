@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-family:system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>A Sky Full of You</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500;600&display=swap">
+
+<style>
+/* Layout concept: one continuous night sky — a fixed starfield canvas behind a single
+   narrow column of centred "moments", each a quiet object floating in the dark. */
+:root{
+  --void:#06091A;
+  --deep:#0D1330;
+  --veil:#19214A;
+  --edge:rgba(233,197,126,.28);
+  --star:#F4F0FA;
+  --mist:#B3BAE0;
+  --gold:#E9C57E;
+  --rose:#E78BA0;
+  --display:'Italiana','Didot',Georgia,serif;
+  --body:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --hand:'Caveat','Segoe Script',cursive;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(1100px 700px at 15% -5%, rgba(74,52,120,.45), transparent 60%),
+    radial-gradient(900px 620px at 90% 18%, rgba(28,72,118,.40), transparent 62%),
+    radial-gradient(800px 800px at 50% 110%, rgba(140,60,90,.26), transparent 64%),
+    var(--void);
+  color:var(--mist);
+  font-family:var(--body);
+  font-size:1.1rem;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+.wrap{
+  max-width:860px;
+  margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+
+section{padding-block:clamp(56px,11vw,110px)}
+section + section{border-top:1px solid rgba(179,186,224,.10)}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;color:var(--star);text-wrap:balance;margin:0;letter-spacing:.01em}
+h1{font-size:clamp(2.7rem,11vw,5.2rem);line-height:1.02}
+h2{font-size:clamp(1.9rem,6vw,3rem);line-height:1.12}
+h3{font-size:1.3rem}
+p{margin:0}
+
+.eyebrow{
+  font-family:var(--body);
+  text-transform:uppercase;
+  letter-spacing:.34em;
+  font-size:.78rem;
+  color:var(--gold);
+  margin:0;
+}
+
+.stack{display:flex;flex-direction:column;gap:22px}
+.center{align-items:center;text-align:center}
+.lede{max-width:34ch;font-size:1.22rem;font-style:italic;color:var(--mist)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(70px,16vw,140px) clamp(56px,11vw,110px)}
+.hero .rule{width:1px;height:70px;background:linear-gradient(var(--gold),transparent)}
+.hero h1 .amp{display:block;font-size:.42em;letter-spacing:.3em;color:var(--gold);margin-block:.5em .2em}
+.moon{
+  width:118px;height:118px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #FFF8E8, #EBD9AE 42%, #B99F6C 78%, #8A7448);
+  box-shadow:0 0 60px rgba(233,197,126,.34), inset -14px -10px 26px rgba(60,44,20,.45);
+  animation:drift 14s ease-in-out infinite;
+}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.cue{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--gold);text-decoration:none;
+  font-size:.82rem;letter-spacing:.24em;text-transform:uppercase;
+  border-bottom:1px solid var(--edge);padding-bottom:6px;
+}
+.cue:hover{color:var(--star);border-color:var(--star)}
+.cue svg{animation:nudge 2.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+/* ---------- envelope ---------- */
+.env-btn{
+  appearance:none;border:0;background:none;padding:0;cursor:pointer;
+  width:min(360px,100%);display:block;
+}
+.env-btn:focus-visible{outline:2px solid var(--gold);outline-offset:14px;border-radius:6px}
+.env{
+  position:relative;width:100%;aspect-ratio:8/5;
+  background:linear-gradient(170deg,var(--veil),var(--deep));
+  border:1px solid var(--edge);border-radius:6px;
+  box-shadow:0 26px 60px rgba(0,0,0,.55);
+  overflow:hidden;
+}
+.env::after{ /* the two folded side seams */
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(to bottom right, transparent 49.4%, rgba(179,186,224,.14) 49.6%, transparent 50.2%),
+    linear-gradient(to bottom left, transparent 49.4%, rgba(179,186,224,.14) 49.6%, transparent 50.2%);
+}
+.flap{
+  position:absolute;top:0;left:0;width:100%;height:66%;
+  background:linear-gradient(185deg,#222C5E,#161E42);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform .85s cubic-bezier(.5,-.2,.3,1.2);
+  z-index:3;
+}
+.seal{
+  position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);
+  width:54px;height:54px;border-radius:50%;
+  background:radial-gradient(circle at 36% 32%, #F3A5B6, var(--rose) 55%, #A94F64);
+  display:grid;place-items:center;color:#4A1724;
+  font-family:var(--hand);font-size:1.5rem;line-height:1;
+  box-shadow:0 6px 18px rgba(0,0,0,.5);
+  z-index:4;transition:opacity .4s ease .1s, transform .5s ease;
+}
+.env-tip{font-size:.95rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-size:.74rem}
+.open .flap{transform:rotateX(-178deg)}
+.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+
+.letter{
+  width:min(600px,100%);
+  margin-top:34px;
+  padding:clamp(26px,6vw,46px);
+  background:linear-gradient(175deg, rgba(244,240,250,.07), rgba(244,240,250,.03));
+  border:1px solid rgba(179,186,224,.22);
+  border-radius:4px;
+  box-shadow:0 30px 70px rgba(0,0,0,.45);
+  font-family:var(--hand);
+  font-size:clamp(1.35rem,4.4vw,1.62rem);
+  line-height:1.62;
+  color:var(--star);
+  animation:unfold .7s ease both;
+}
+@keyframes unfold{from{opacity:0;transform:translateY(-14px) scale(.985)}to{opacity:1;transform:none}}
+.letter p + p{margin-top:1.05em}
+.letter .sign{color:var(--gold);text-align:right;font-size:1.1em}
+.caret::after{content:"▍";color:var(--gold);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.ghost{
+  appearance:none;cursor:pointer;
+  background:transparent;color:var(--mist);
+  border:1px solid rgba(179,186,224,.3);border-radius:999px;
+  padding:11px 22px;min-height:44px;
+  font-family:var(--body);font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.ghost:hover{color:var(--star);border-color:var(--gold)}
+.ghost:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ---------- reasons ---------- */
+.grid{
+  display:grid;gap:16px;width:100%;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+}
+.card{
+  appearance:none;border:0;padding:0;background:none;cursor:pointer;
+  aspect-ratio:1/1.08;perspective:900px;min-width:0;
+}
+.card:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:10px}
+.face-wrap{position:relative;width:100%;height:100%;transition:transform .72s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
+.card[aria-pressed="true"] .face-wrap{transform:rotateY(180deg)}
+.face{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:10px;border:1px solid var(--edge);
+  display:grid;place-content:center;gap:10px;padding:18px;text-align:center;
+}
+.front{background:linear-gradient(165deg,var(--veil),var(--deep))}
+.front .num{font-family:var(--display);font-size:2.1rem;color:var(--gold);line-height:1}
+.front .hint{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist)}
+.back{
+  transform:rotateY(180deg);
+  background:linear-gradient(165deg,rgba(231,139,160,.20),rgba(13,19,48,.95));
+  border-color:rgba(231,139,160,.45);
+  color:var(--star);font-size:1.08rem;line-height:1.5;font-style:italic;
+}
+.tally{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-variant-numeric:tabular-nums}
+
+/* ---------- game ---------- */
+.arena{
+  position:relative;width:100%;height:clamp(330px,52vw,420px);
+  border:1px solid rgba(179,186,224,.16);border-radius:14px;
+  background:linear-gradient(180deg,rgba(13,19,48,.55),rgba(6,9,26,.2));
+  overflow:hidden;
+}
+.arena-msg{
+  position:absolute;inset:0;display:grid;place-content:center;gap:16px;justify-items:center;
+  text-align:center;padding:24px;
+}
+.heart-btn{
+  position:absolute;bottom:-70px;
+  appearance:none;border:0;background:none;padding:10px;cursor:pointer;
+  line-height:0;animation:rise linear forwards;
+  min-width:44px;min-height:44px;
+}
+.heart-btn:focus-visible{outline:2px solid var(--gold);outline-offset:0;border-radius:8px}
+@keyframes rise{to{transform:translateY(calc(-1 * (var(--arena,420px) + 110px))) rotate(var(--spin,12deg))}}
+.pop{animation:pop .35s ease forwards;pointer-events:none}
+@keyframes pop{to{transform:scale(1.9);opacity:0}}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:14px;width:100%;flex-wrap:wrap}
+.score{font-family:var(--display);font-size:1.6rem;color:var(--star);font-variant-numeric:tabular-nums}
+.meter{height:3px;width:100%;background:rgba(179,186,224,.18);border-radius:2px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .35s ease}
+
+.secret{
+  width:min(560px,100%);text-align:center;
+  padding:clamp(24px,5vw,38px);
+  border:1px solid rgba(231,139,160,.4);border-radius:12px;
+  background:radial-gradient(circle at 50% 0%, rgba(231,139,160,.18), rgba(6,9,26,.7));
+  animation:unfold .7s ease both;
+}
+.secret p{font-family:var(--hand);font-size:clamp(1.35rem,4.4vw,1.7rem);color:var(--star);line-height:1.5}
+
+/* ---------- finale ---------- */
+.finale{text-align:center}
+.finale .sign{font-family:var(--hand);font-size:clamp(1.6rem,5vw,2.1rem);color:var(--gold)}
+.tiny{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(179,186,224,.6)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .moon,.cue svg{animation:none}
+}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<main class="wrap">
+
+  <section class="hero stack center">
+    <div class="moon" aria-hidden="true"></div>
+    <p class="eyebrow">For My Love</p>
+    <h1>A Sky<span class="amp">full of</span>You</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="lede">Every star up there has been burning for a million years just to be here on the night I tell you this.</p>
+    <a class="cue" href="#letter">
+      Start here
+      <svg width="12" height="16" viewBox="0 0 12 16" fill="none" aria-hidden="true"><path d="M6 1v13M1 9l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </section>
+
+  <section id="letter" class="stack center">
+    <p class="eyebrow">One</p>
+    <h2>I wrote you something</h2>
+    <p class="lede">It has been sealed, waiting for you. Go on — break it open.</p>
+
+    <button class="env-btn" id="envBtn" aria-expanded="false" aria-controls="letterBody">
+      <span class="env" id="env">
+        <span class="flap" aria-hidden="true"></span>
+        <span class="seal" aria-hidden="true">R</span>
+      </span>
+      <span class="env-tip" id="envTip">Tap to open</span>
+    </button>
+
+    <article class="letter" id="letterBody" hidden>
+      <p>My love,</p>
+      <p>I keep trying to say this out loud and the words always come out smaller than the feeling. So I built you a sky instead.</p>
+      <p>You are my favourite thought in the middle of a long day, the person I save every small story for, the one whose laugh I can hear in my head before I even make the joke.</p>
+      <p>Distance, deadlines, bad days — none of it has ever been louder than you. I would choose this, choose you, in every version of the universe where I get a choice.</p>
+      <p>Thank you for being mine. Keep scrolling, there is more.</p>
+      <p class="sign">Always yours, Ragul</p>
+    </article>
+    <button class="ghost" id="skipType" hidden>Show it all</button>
+  </section>
+
+  <section id="reasons" class="stack center">
+    <p class="eyebrow">Two</p>
+    <h2>Nine reasons, in no order</h2>
+    <p class="lede">Turn each one over. They are all true, and there are far more than nine.</p>
+
+    <div class="grid" id="reasonGrid">
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">I</span><span class="hint">Turn</span></span><span class="face back">You make ordinary days feel like something worth remembering.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">II</span><span class="hint">Turn</span></span><span class="face back">The way you laugh before you finish telling the joke.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">III</span><span class="hint">Turn</span></span><span class="face back">You listen to me talk about my work like it is the most interesting thing in the world.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">IV</span><span class="hint">Turn</span></span><span class="face back">You are kind to people who can do nothing for you.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">V</span><span class="hint">Turn</span></span><span class="face back">Your name is still the best thing to see on my screen.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">VI</span><span class="hint">Turn</span></span><span class="face back">You tell me the truth, even the parts I would rather not hear.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">VII</span><span class="hint">Turn</span></span><span class="face back">Silence with you is comfortable. That is rarer than people think.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">VIII</span><span class="hint">Turn</span></span><span class="face back">You make me want to be a better version of myself, quietly.</span></span></button>
+      <button class="card" aria-pressed="false"><span class="face-wrap"><span class="face front"><span class="num">IX</span><span class="hint">Turn</span></span><span class="face back">Because every plan I make for the future has you already in it.</span></span></button>
+    </div>
+    <p class="tally" id="tally">0 of 9 turned over</p>
+  </section>
+
+  <section id="game" class="stack center">
+    <p class="eyebrow">Three</p>
+    <h2>Catch twelve hearts</h2>
+    <p class="lede">They float up fast. Catch twelve and something I have been hiding unlocks.</p>
+
+    <div class="hud">
+      <span class="score"><span id="score">0</span> / 12</span>
+      <button class="ghost" id="playBtn">Start</button>
+    </div>
+    <div class="meter" aria-hidden="true"><i id="meterFill"></i></div>
+
+    <div class="arena" id="arena">
+      <div class="arena-msg" id="arenaMsg">
+        <p class="eyebrow">Ready when you are</p>
+        <p>Tap the hearts before they drift away.</p>
+      </div>
+    </div>
+
+    <div class="secret" id="secret" hidden>
+      <p class="eyebrow">Unlocked</p>
+      <p id="secretText">Here it is, the thing I never say plainly: you are not a chapter of my life. You are the whole book, and I am reading slowly on purpose.</p>
+    </div>
+  </section>
+
+  <section class="finale stack center">
+    <p class="eyebrow">And finally</p>
+    <h2>Same sky, always</h2>
+    <p class="lede">Wherever you are standing tonight, look up. I am looking at the same one, thinking about you.</p>
+    <p class="sign">— Ragul</p>
+    <p class="tiny">Made for you, by hand</p>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- starfield ---------- */
+  var cv = document.getElementById('sky'), cx = cv.getContext('2d');
+  var stars = [], shooters = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function build(){
+    w = cv.clientWidth; h = cv.clientHeight;
+    cv.width = Math.floor(w * dpr); cv.height = Math.floor(h * dpr);
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.round(Math.min(240, (w * h) / 5200));
+    stars = [];
+    for (var i = 0; i < count; i++){
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.25 + 0.25,
+        a: Math.random() * 0.6 + 0.25,
+        sp: Math.random() * 0.018 + 0.004,
+        ph: Math.random() * Math.PI * 2,
+        warm: Math.random() > 0.84
+      });
+    }
+  }
+
+  function drawStar(s, t){
+    var a = reduce ? s.a : s.a + Math.sin(t * s.sp + s.ph) * 0.3;
+    if (a < 0.05) a = 0.05;
+    cx.globalAlpha = a;
+    cx.fillStyle = s.warm ? '#E9C57E' : '#F4F0FA';
+    cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.2832); cx.fill();
+    if (s.r > 1.05){
+      cx.globalAlpha = a * 0.22;
+      cx.beginPath(); cx.arc(s.x, s.y, s.r * 4, 0, 6.2832); cx.fill();
+    }
+  }
+
+  function frame(t){
+    cx.clearRect(0, 0, w, h);
+    for (var i = 0; i < stars.length; i++) drawStar(stars[i], t);
+    for (var j = shooters.length - 1; j >= 0; j--){
+      var m = shooters[j];
+      m.x += m.vx; m.y += m.vy; m.life -= 1;
+      cx.globalAlpha = Math.max(0, m.life / m.max) * 0.9;
+      var g = cx.createLinearGradient(m.x, m.y, m.x - m.vx * 14, m.y - m.vy * 14);
+      g.addColorStop(0, '#FFFFFF'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      cx.strokeStyle = g; cx.lineWidth = 1.6; cx.lineCap = 'round';
+      cx.beginPath(); cx.moveTo(m.x, m.y); cx.lineTo(m.x - m.vx * 14, m.y - m.vy * 14); cx.stroke();
+      if (m.life <= 0) shooters.splice(j, 1);
+    }
+    cx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+
+  function shoot(){
+    if (!reduce && document.visibilityState === 'visible' && shooters.length < 2){
+      shooters.push({ x: Math.random() * w * 0.7, y: Math.random() * h * 0.4, vx: 5 + Math.random() * 3, vy: 1.6 + Math.random() * 1.4, life: 70, max: 70 });
+    }
+    setTimeout(shoot, 4200 + Math.random() * 7000);
+  }
+
+  build();
+  requestAnimationFrame(frame);
+  setTimeout(shoot, 2600);
+  var rz; window.addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(build, 180); });
+
+  /* ---------- envelope + typed letter ---------- */
+  var envBtn = document.getElementById('envBtn'),
+      env = document.getElementById('env'),
+      envTip = document.getElementById('envTip'),
+      letter = document.getElementById('letterBody'),
+      skip = document.getElementById('skipType');
+
+  var lines = [].slice.call(letter.querySelectorAll('p'));
+  var full = lines.map(function(p){ return p.textContent; });
+  var typing = null, opened = false;
+
+  function showAll(){
+    if (typing) { clearTimeout(typing); typing = null; }
+    lines.forEach(function(p, i){ p.textContent = full[i]; p.classList.remove('caret'); });
+    skip.hidden = true;
+  }
+
+  function typeFrom(i, ch){
+    if (i >= lines.length){ skip.hidden = true; typing = null; return; }
+    var p = lines[i], text = full[i];
+    if (ch === 0) p.classList.add('caret');
+    if (ch > text.length){
+      p.classList.remove('caret');
+      typing = setTimeout(function(){ typeFrom(i + 1, 0); }, 260);
+      return;
+    }
+    p.textContent = text.slice(0, ch);
+    typing = setTimeout(function(){ typeFrom(i, ch + 1); }, 17);
+  }
+
+  envBtn.addEventListener('click', function(){
+    if (opened) { letter.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); return; }
+    opened = true;
+    env.classList.add('open');
+    envBtn.setAttribute('aria-expanded', 'true');
+    envTip.textContent = 'Opened';
+    letter.hidden = false;
+    if (reduce){ showAll(); return; }
+    lines.forEach(function(p){ p.textContent = ''; });
+    skip.hidden = false;
+    setTimeout(function(){ typeFrom(0, 0); }, 620);
+  });
+  skip.addEventListener('click', showAll);
+
+  /* ---------- flip cards ---------- */
+  var cards = [].slice.call(document.querySelectorAll('.card')),
+      tally = document.getElementById('tally');
+  cards.forEach(function(c){
+    c.addEventListener('click', function(){
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      var n = cards.filter(function(x){ return x.getAttribute('aria-pressed') === 'true'; }).length;
+      tally.textContent = n === 9 ? 'All nine — and still counting' : n + ' of 9 turned over';
+    });
+  });
+
+  /* ---------- catch the hearts ---------- */
+  var arena = document.getElementById('arena'),
+      arenaMsg = document.getElementById('arenaMsg'),
+      playBtn = document.getElementById('playBtn'),
+      scoreEl = document.getElementById('score'),
+      meter = document.getElementById('meterFill'),
+      secret = document.getElementById('secret');
+
+  var score = 0, spawner = null, running = false;
+  var TARGET = 12;
+  var HEART = '<svg width="34" height="31" viewBox="0 0 34 31" aria-hidden="true"><path d="M17 30.2 3.6 17.1A8.6 8.6 0 0 1 17 6.3 8.6 8.6 0 0 1 30.4 17.1Z" fill="COLOR"/></svg>';
+  var COLORS = ['#E78BA0', '#E9C57E', '#F4A6B8', '#D9758F'];
+
+  function spawn(){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'heart-btn';
+    b.setAttribute('aria-label', 'Catch a heart');
+    b.innerHTML = HEART.replace('COLOR', COLORS[Math.floor(Math.random() * COLORS.length)]);
+    b.style.left = (6 + Math.random() * 80) + '%';
+    var size = 0.7 + Math.random() * 0.7;
+    b.style.setProperty('--spin', (Math.random() * 40 - 20) + 'deg');
+    b.style.setProperty('--arena', arena.clientHeight + 'px');
+    b.style.transform = 'scale(' + size.toFixed(2) + ')';
+
+    if (reduce){
+      b.style.animation = 'none';
+      b.style.bottom = (10 + Math.random() * 70) + '%';
+      setTimeout(function(){ if (b.parentNode) b.remove(); }, 6000);
+    } else {
+      b.style.animationDuration = (4.4 + Math.random() * 2.6).toFixed(1) + 's';
+      b.addEventListener('animationend', function(){ if (b.parentNode) b.remove(); });
+    }
+
+    b.addEventListener('click', function(){
+      if (b.dataset.got) return;
+      b.dataset.got = '1';
+      b.classList.add('pop');
+      setTimeout(function(){ if (b.parentNode) b.remove(); }, 340);
+      score++;
+      scoreEl.textContent = score;
+      meter.style.width = Math.min(100, (score / TARGET) * 100) + '%';
+      if (score >= TARGET) win();
+    });
+
+    arena.appendChild(b);
+  }
+
+  function win(){
+    running = false;
+    clearInterval(spawner);
+    [].slice.call(arena.querySelectorAll('.heart-btn')).forEach(function(x){ x.remove(); });
+    arenaMsg.hidden = false;
+    arenaMsg.innerHTML = '<p class="eyebrow">Twelve out of twelve</p><p>You caught them all. Of course you did.</p>';
+    playBtn.textContent = 'Play again';
+    secret.hidden = false;
+    secret.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  }
+
+  playBtn.addEventListener('click', function(){
+    if (running) return;
+    running = true;
+    score = 0;
+    scoreEl.textContent = '0';
+    meter.style.width = '0%';
+    arenaMsg.hidden = true;
+    playBtn.textContent = 'Catching…';
+    spawn();
+    spawner = setInterval(function(){
+      if (!running) { clearInterval(spawner); return; }
+      spawn();
+    }, reduce ? 1400 : 760);
+  });
+})();
+</script>
+</body>
+</html>
